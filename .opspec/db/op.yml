@@ -1,0 +1,28 @@
+name: db
+description: runs development database
+inputs:
+  appDir:
+    dir:
+      description: Application root direactory.
+      default: .
+  miniurlDBUsername:
+    string:
+      description: Database username.
+  miniurlDBPassword:
+    string:
+      description: Database password.
+      isSecret: true
+  miniurlDBSchema:
+    string:
+      description: Database schema name.
+  miniurlDBHost:
+    string:
+      description: Database hostname.
+run:
+  serial:
+    - op:
+        ref: db/init
+        inputs: { appDir }
+    - op:
+        ref: github.com/opspec-pkgs/mysql.db.run#1.0.2
+        inputs: { dbDataRootDir: $(appDir/database/mysql-data), dbPassword: $(miniurlDBPassword), dbHostname: $(miniurlDBHost), dbSchema: $(miniurlDBSchema), dbUsername: $(miniurlDBUsername), dbUseNativePassword: true }

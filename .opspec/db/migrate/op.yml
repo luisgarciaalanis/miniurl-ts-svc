@@ -1,0 +1,40 @@
+name: db/migrate
+description: Migrates the database.
+inputs:
+  appDir:
+    dir:
+      default: .
+  miniurlDBUsername:
+    string:
+      description: Database username.
+  miniurlDBPassword:
+    string:
+      description: Database password.
+      isSecret: true
+  miniurlDBSchema:
+    string:
+      description: Database schema name.
+  miniurlDBHost:
+    string:
+      description: Database hostname.
+  miniurlDBPort:
+    string:
+      description: Database port.
+run:
+  container:
+    image: { ref: 'alpine:3.18' }
+    dirs: { '/app': $(appDir) }
+    workDir: /app
+    name: migrate
+    envVars:
+      miniurlDBUsername:
+      miniurlDBPassword:
+      miniurlDBSchema:
+      miniurlDBHost:
+      miniurlDBPort:
+    cmd:
+      - sh
+      - -ce
+      - |
+        echo Add migration call here 
+        exit 0

@@ -1,3 +1,6 @@
+# MiniURL
+database/mysql-data*
+
 # Logs
 logs
 *.log

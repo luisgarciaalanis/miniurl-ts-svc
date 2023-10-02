@@ -1,0 +1,42 @@
+name: db/rebuild
+description: Rebuilds the database.
+inputs:
+  appDir:
+    dir:
+      description: Application root direactory.
+      default: .
+  miniurlDBUsername:
+    string:
+      description: Name of the database user.
+  miniurlDBPassword:
+    string:
+      description: Password to connect to the database.
+      isSecret: true
+  miniurlDBSchema:
+    string:
+      description: Name of the miniurl schema database.
+  miniurlDBHost:
+    string:
+      description: Name of the miniurl database hostname.
+  miniurlDBPort:
+    string:
+      description: Name of the miniurl database port.
+run:
+  serial:
+    - op:
+        ref: ../clean
+        inputs: { appDir }
+    - parallel:
+        - name: miniurlDB
+          op:
+            ref: ../../db
+            inputs: { appDir, miniurlDBUsername, miniurlDBPassword, miniurlDBSchema, miniurlDBHost }
+        - serial:
+            - op:
+                ref: github.com/opspec-pkgs/mysql.db.waitready#1.0.1
+                inputs: { dbPassword: $(miniurlDBPassword), dbSchema: $(miniurlDBSchema), dbPort: $(miniurlDBPort), dbUsername: $(miniurlDBUsername), dbHost: $(miniurlDBHost), timeout: 60 }
+            - op:
+                ref: ../migrate
+                inputs: { appDir, miniurlDBUsername, miniurlDBPassword, miniurlDBSchema, miniurlDBHost, miniurlDBPort }
+          needs:
+          - miniurlDB

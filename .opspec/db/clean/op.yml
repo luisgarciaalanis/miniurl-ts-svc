@@ -1,0 +1,14 @@
+name: db/clean
+description: Destroys database data folder.
+inputs:
+  appDir:
+    dir:
+      default: .
+run:
+  container:
+    image: { ref: 'alpine:3.18' }
+    dirs: { '/app': $(appDir) }
+    files:
+      /clean.sh:
+    cmd: ['/clean.sh']
+

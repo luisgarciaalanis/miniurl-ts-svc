@@ -1,0 +1,13 @@
+name: db/init
+description: Initializes the test db folder.
+inputs:
+  appDir:
+    dir:
+      default: .
+run:
+  container:
+    image: { ref: 'alpine:3.18' }
+    dirs: { '/app': $(appDir) }
+    files:
+      /init.sh:
+    cmd: ['/init.sh']
