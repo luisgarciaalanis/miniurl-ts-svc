@@ -7,6 +7,6 @@ import winston from 'winston';
 function logger(): winston.Logger {
     const console = new winston.transports.Console();
     return winston.clear().add(console);
-};
+}
 
 export const log = logger();
