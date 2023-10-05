@@ -10,8 +10,11 @@ export class Setting {
      * @param required true if the setting is a required setting.
      * @param isSecret true if the setting should be treated as a secret (useful when logging).
      */
-    public constructor(public key: string, public required: boolean, public isSecret: boolean) {
-    }
+    public constructor(
+        public key: string,
+        public required: boolean,
+        public isSecret: boolean
+    ) {}
 
     /**
      * Returns the value of a setting.
@@ -19,8 +22,8 @@ export class Setting {
      * @param setting name of the setting.
      * @returns the value of a setting or an empty string if it does not exist.
      */
-    public valueOf(setting    : string) {
-        return process.env[setting   ] || '';
+    public valueOf(setting: string) {
+        return process.env[setting] || '';
     }
 
     /**

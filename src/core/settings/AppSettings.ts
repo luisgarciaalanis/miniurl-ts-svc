@@ -16,7 +16,7 @@ class AppSettings {
     public dbSchema = 'miniurlDBSchema';
 
     public settings = [
-        new Setting(this .dbUsername, true, false),
+        new Setting(this.dbUsername, true, false),
         new Setting(this.dbPassword, true, true),
         new Setting(this.dbHost, true, false),
         new Setting(this.dbPort, true, false),
@@ -25,7 +25,7 @@ class AppSettings {
 
     /**
      * Checks that the application settings are present and ready to be used.
-     * 
+     *
      * @returns true if the application settings are valid, false otherwise.
      */
     public ok(): boolean {
